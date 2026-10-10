@@ -202,3 +202,11 @@ def test_keywords_appear_in_visible_copy():
     body = re.sub(r"<[^>]+>", " ", INDEX.split("<body>", 1)[1]).lower()
     for phrase in ("successfactors", "eu ai act", "ai agents", "checklist", "annex iii"):
         assert phrase in body, phrase
+
+
+def test_sample_report_has_seo_metadata(dist):
+    html = (dist / "sample-report.html").read_text(encoding="utf-8")
+    assert f'<link rel="canonical" href="{CANONICAL}sample-report.html">' in html
+    assert '<meta name="description"' in html
+    assert f'href="{CANONICAL}"' in html
+    assert "<title>Sample AI Agent Register Validation Report</title>" in html

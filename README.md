@@ -59,7 +59,7 @@ downloads/        EU_AI_Act_HR_Audit_Checklist.xlsx
 examples/         clean_register.json  demo_with_findings.json
 schema/           agent_register.schema.json
 templates/        field_mapping.csv (register field to MDF field and picklist)
-tests/            54 tests: every check, boundary cases, schema and doc drift, site SEO and links
+tests/            55 tests: every check, boundary cases, schema and doc drift, site SEO and links
 ```
 
 ## Limits

@@ -22,5 +22,25 @@ if [ "$rc" -ne 1 ]; then
   exit 1
 fi
 
+# Give the public sample page proper metadata and a route back to the landing page.
+python3 - "$DIST/sample-report.html" <<'PY'
+import sys
+from pathlib import Path
+
+page = Path(sys.argv[1])
+base = "https://sahirvhora.github.io/sf-agent-workforce/"
+head = (
+    '<meta name="description" content="Sample CHK-AGT validation report for an AI agent register in SAP '
+    'SuccessFactors, showing EU AI Act findings such as missing oversight and expired permissions.">\n'
+    f'<link rel="canonical" href="{base}sample-report.html">\n'
+    '<link rel="icon" type="image/svg+xml" href="favicon.svg">\n'
+)
+back = f'<p><a href="{base}">&larr; SF Agent Workforce: data model, checks and free EU AI Act HR checklist</a></p>\n'
+html = page.read_text(encoding="utf-8")
+html = html.replace("<title>Agent Register Validation</title>", "<title>Sample AI Agent Register Validation Report</title>\n" + head, 1)
+html = html.replace("<h1>", back + "<h1>", 1)
+page.write_text(html, encoding="utf-8")
+PY
+
 touch "$DIST/.nojekyll"
 find "$DIST" -type f | sort | sed "s#^$DIST/##"
