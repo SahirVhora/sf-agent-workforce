@@ -1,0 +1,25 @@
+register_field,suggested_mdf_field_id,mdf_type,picklist_id,required
+externalCode,externalCode,String,,Y
+effectiveStartDate,effectiveStartDate,Date,,Y
+effectiveEndDate,effectiveEndDate,Date,,N
+name,externalName,String,,Y
+agentType,cust_agentType,Picklist,cust_AgentType,Y
+vendor,cust_vendor,String,,N
+modelVersion,cust_modelVersion,String,,N
+status,cust_agentStatus,Picklist,cust_AgentStatus,Y
+ownerUserId,cust_owner,User,,Y
+killSwitchOwnerUserId,cust_killSwitchOwner,User,,Y
+legalEntity,cust_legalEntity,Foundation Object (Legal Entity),,Y
+costCenter,cust_costCenter,Foundation Object (Cost Center),,Y
+positionCode,cust_position,Generic Object (Position),,N
+riskClassification,cust_riskClass,Picklist,cust_AIRiskClass,Y
+annexIIIPoint,cust_annexIIIPoint,String,,N
+humanOversightMode,cust_oversightMode,Picklist,cust_OversightMode,Y
+decisionScopes,cust_decisionScopes,Multi-select Picklist,cust_DecisionScope,Y
+fteEquivalent,cust_fteEquivalent,Decimal,,N
+monthlyRunCost,cust_monthlyRunCost,Decimal,,N
+logRetentionDays,cust_logRetentionDays,Number,,High-risk
+workerRepsInformedDate,cust_workerRepsInformed,Date,,High-risk
+oversightEvidenceRef,cust_oversightEvidenceRef,String,,N
+nextReviewDate,cust_nextReviewDate,Date,,Y
+permissions,cust_permissions,Composite (cust_AgentPermission),,N

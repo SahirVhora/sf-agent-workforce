@@ -1,0 +1,16 @@
+[project]
+name = "sf-agent-workforce"
+version = "0.1.0"
+description = "Reference data model and CHK-AGT validator for AI agents held as workers in SAP SuccessFactors"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Sahir Vhora"}]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+agent-validate = "agent_workforce.validate:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

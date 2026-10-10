@@ -1,0 +1,197 @@
+{
+  "employees": [
+    {
+      "userId": "E1001",
+      "name": "Payroll Ops Lead",
+      "status": "ACTIVE"
+    },
+    {
+      "userId": "E1002",
+      "name": "HR Tech Manager",
+      "status": "ACTIVE"
+    },
+    {
+      "userId": "E1003",
+      "name": "Talent Acquisition Lead",
+      "status": "ACTIVE"
+    },
+    {
+      "userId": "E1999",
+      "name": "Former HRBP",
+      "status": "TERMINATED"
+    }
+  ],
+  "positions": [
+    {
+      "code": "POS-AGT-001",
+      "title": "Payroll Validation Agent",
+      "status": "ACTIVE",
+      "staffingType": "AGENT"
+    },
+    {
+      "code": "POS-HYB-002",
+      "title": "Recruitment Coordinator",
+      "status": "ACTIVE",
+      "staffingType": "HYBRID"
+    },
+    {
+      "code": "POS-HUM-009",
+      "title": "HR Advisor",
+      "status": "ACTIVE",
+      "staffingType": "HUMAN"
+    }
+  ],
+  "costCenters": [
+    "CC-HR-100",
+    "CC-PAY-200"
+  ],
+  "agents": [
+    {
+      "externalCode": "AGT-PAY-01",
+      "effectiveStartDate": "2026-04-01",
+      "name": "Payroll pre-run validator",
+      "agentType": "TASK_AGENT",
+      "vendor": "Internal",
+      "modelVersion": "2026-03",
+      "status": "ACTIVE",
+      "ownerUserId": "E1001",
+      "killSwitchOwnerUserId": "E1002",
+      "legalEntity": "LE-UK-01",
+      "costCenter": "CC-PAY-200",
+      "positionCode": "POS-AGT-001",
+      "riskClassification": "MINIMAL",
+      "humanOversightMode": "HUMAN_ON_THE_LOOP",
+      "decisionScopes": [
+        "payroll_calculation_support",
+        "data_validation"
+      ],
+      "fteEquivalent": 0.6,
+      "monthlyRunCost": 410.0,
+      "logRetentionDays": 365,
+      "nextReviewDate": "2027-01-15",
+      "permissions": [
+        {
+          "system": "SF_EC",
+          "scope": "EmpJob,EmpCompensation",
+          "accessLevel": "READ",
+          "grantedBy": "E1002",
+          "grantedDate": "2026-04-01",
+          "expiryDate": "2027-03-31",
+          "status": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "externalCode": "AGT-REC-01",
+      "effectiveStartDate": "2026-09-01",
+      "name": "Application screening assistant",
+      "agentType": "ASSISTANT",
+      "vendor": "Vendor X",
+      "modelVersion": "4.2",
+      "status": "ACTIVE",
+      "ownerUserId": "E1003",
+      "killSwitchOwnerUserId": "E1002",
+      "legalEntity": "LE-UK-01",
+      "costCenter": "CC-HR-100",
+      "positionCode": "POS-HYB-002",
+      "riskClassification": "HIGH_RISK_ANNEX_III",
+      "annexIIIPoint": "4(a)",
+      "humanOversightMode": "HUMAN_IN_THE_LOOP",
+      "decisionScopes": [
+        "recruitment_screening"
+      ],
+      "logRetentionDays": 400,
+      "workerRepsInformedDate": "2026-08-01",
+      "oversightEvidenceRef": "DOC-OVS-2026-014",
+      "nextReviewDate": "2026-12-01",
+      "permissions": [
+        {
+          "system": "SF_RCM",
+          "scope": "JobApplication",
+          "accessLevel": "READ",
+          "grantedBy": "E1002",
+          "grantedDate": "2026-09-01",
+          "expiryDate": "2027-08-31",
+          "status": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "externalCode": "AGT-PERF-01",
+      "effectiveStartDate": "2026-06-01",
+      "name": "Performance insight agent",
+      "agentType": "TASK_AGENT",
+      "status": "ACTIVE",
+      "ownerUserId": "E1999",
+      "killSwitchOwnerUserId": "E1002",
+      "legalEntity": "LE-UK-01",
+      "costCenter": "CC-HR-100",
+      "positionCode": "POS-HUM-009",
+      "riskClassification": "LIMITED_TRANSPARENCY",
+      "humanOversightMode": "NONE",
+      "decisionScopes": [
+        "performance_monitoring"
+      ],
+      "logRetentionDays": 90,
+      "nextReviewDate": "2026-09-01",
+      "permissions": [
+        {
+          "system": "SF_PMGM",
+          "scope": "FormHeader",
+          "accessLevel": "WRITE",
+          "grantedBy": "E1002",
+          "grantedDate": "2025-06-01",
+          "expiryDate": "2026-08-31",
+          "status": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "externalCode": "AGT-WELL-01",
+      "effectiveStartDate": "2026-07-01",
+      "name": "Call-centre mood monitor",
+      "agentType": "TASK_AGENT",
+      "status": "ACTIVE",
+      "ownerUserId": "E1002",
+      "killSwitchOwnerUserId": "",
+      "legalEntity": "LE-UK-01",
+      "costCenter": "CC-OPS-999",
+      "riskClassification": "HIGH_RISK_ANNEX_III",
+      "humanOversightMode": "HUMAN_ON_THE_LOOP",
+      "decisionScopes": [
+        "workplace_emotion_recognition"
+      ],
+      "logRetentionDays": 365,
+      "workerRepsInformedDate": "2026-07-15",
+      "nextReviewDate": "2027-01-01",
+      "permissions": [
+        {
+          "system": "CCaaS",
+          "scope": "audio",
+          "accessLevel": "READ",
+          "grantedBy": "E1002",
+          "grantedDate": "2026-07-01",
+          "status": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "externalCode": "AGT-PAY-01",
+      "effectiveStartDate": "2026-09-15",
+      "name": "Payroll pre-run validator v2",
+      "agentType": "TASK_AGENT",
+      "status": "ACTIVE",
+      "ownerUserId": "E1001",
+      "killSwitchOwnerUserId": "E1002",
+      "legalEntity": "LE-UK-01",
+      "costCenter": "CC-PAY-200",
+      "riskClassification": "MINIMAL",
+      "humanOversightMode": "HUMAN_ON_THE_LOOP",
+      "decisionScopes": [
+        "data_validation"
+      ],
+      "nextReviewDate": "2027-01-15",
+      "permissions": []
+    }
+  ]
+}

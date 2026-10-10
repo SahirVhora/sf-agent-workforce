@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SahirVhora/sf-agent-workforce/schema/agent_register.schema.json",
+  "title": "Agent register export",
+  "type": "object",
+  "required": [
+    "agents",
+    "employees",
+    "positions",
+    "costCenters"
+  ],
+  "properties": {
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "externalCode",
+          "effectiveStartDate",
+          "name",
+          "agentType",
+          "status",
+          "ownerUserId",
+          "killSwitchOwnerUserId",
+          "legalEntity",
+          "costCenter",
+          "riskClassification",
+          "humanOversightMode",
+          "decisionScopes",
+          "nextReviewDate"
+        ],
+        "properties": {
+          "externalCode": {
+            "type": "string"
+          },
+          "effectiveStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "effectiveEndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "name": {
+            "type": "string"
+          },
+          "agentType": {
+            "enum": [
+              "ASSISTANT",
+              "ORCHESTRATOR",
+              "RPA_BOT",
+              "TASK_AGENT"
+            ]
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "modelVersion": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ACTIVE",
+              "RETIRED",
+              "SUSPENDED"
+            ]
+          },
+          "ownerUserId": {
+            "type": "string"
+          },
+          "killSwitchOwnerUserId": {
+            "type": "string"
+          },
+          "legalEntity": {
+            "type": "string"
+          },
+          "costCenter": {
+            "type": "string"
+          },
+          "positionCode": {
+            "type": "string"
+          },
+          "riskClassification": {
+            "enum": [
+              "HIGH_RISK_ANNEX_III",
+              "LIMITED_TRANSPARENCY",
+              "MINIMAL",
+              "PROHIBITED"
+            ]
+          },
+          "annexIIIPoint": {
+            "type": "string"
+          },
+          "humanOversightMode": {
+            "enum": [
+              "HUMAN_IN_THE_LOOP",
+              "HUMAN_ON_THE_LOOP",
+              "NONE"
+            ]
+          },
+          "decisionScopes": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "candidate_evaluation",
+                "data_migration",
+                "data_validation",
+                "document_drafting",
+                "employee_query_answering",
+                "other",
+                "payroll_calculation_support",
+                "performance_monitoring",
+                "promotion_decision",
+                "recruitment_screening",
+                "recruitment_targeted_ads",
+                "reporting",
+                "task_allocation_by_traits",
+                "termination_decision",
+                "terms_of_work_decision",
+                "workplace_emotion_recognition"
+              ]
+            }
+          },
+          "fteEquivalent": {
+            "type": "number",
+            "minimum": 0
+          },
+          "monthlyRunCost": {
+            "type": "number",
+            "minimum": 0
+          },
+          "logRetentionDays": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "workerRepsInformedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "oversightEvidenceRef": {
+            "type": "string"
+          },
+          "nextReviewDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "system",
+                "scope",
+                "accessLevel",
+                "grantedBy",
+                "grantedDate",
+                "status"
+              ],
+              "properties": {
+                "system": {
+                  "type": "string"
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "accessLevel": {
+                  "enum": [
+                    "ADMIN",
+                    "READ",
+                    "WRITE"
+                  ]
+                },
+                "grantedBy": {
+                  "type": "string"
+                },
+                "grantedDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "expiryDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "status": {
+                  "enum": [
+                    "ACTIVE",
+                    "REVOKED"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "employees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "userId",
+          "status"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "positions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "status",
+          "staffingType"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "staffingType": {
+            "enum": [
+              "AGENT",
+              "HUMAN",
+              "HYBRID"
+            ]
+          }
+        }
+      }
+    },
+    "costCenters": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
