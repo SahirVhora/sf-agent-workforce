@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sahirvhora.github.io/sf-agent-workforce/sitemap.xml

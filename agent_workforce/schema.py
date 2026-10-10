@@ -58,21 +58,37 @@ def build_schema() -> dict:
     }
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/SahirVhora/sf-agent-workforce/schema/agent_register.schema.json",
+        "$id": "https://sahirvhora.github.io/sf-agent-workforce/schema/agent_register.schema.json",
         "title": "Agent register export",
         "type": "object",
         "required": ["agents", "employees", "positions", "costCenters"],
         "properties": {
             "agents": {"type": "array", "items": agent},
-            "employees": {"type": "array", "items": {
-                "type": "object", "required": ["userId", "status"],
-                "properties": {"userId": {"type": "string"}, "name": {"type": "string"},
-                               "status": {"type": "string"}}}},
-            "positions": {"type": "array", "items": {
-                "type": "object", "required": ["code", "status", "staffingType"],
-                "properties": {"code": {"type": "string"}, "title": {"type": "string"},
-                               "status": {"type": "string"},
-                               "staffingType": {"enum": sorted(m.POSITION_STAFFING_TYPES)}}}},
+            "employees": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["userId", "status"],
+                    "properties": {
+                        "userId": {"type": "string"},
+                        "name": {"type": "string"},
+                        "status": {"type": "string"},
+                    },
+                },
+            },
+            "positions": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["code", "status", "staffingType"],
+                    "properties": {
+                        "code": {"type": "string"},
+                        "title": {"type": "string"},
+                        "status": {"type": "string"},
+                        "staffingType": {"enum": sorted(m.POSITION_STAFFING_TYPES)},
+                    },
+                },
+            },
             "costCenters": {"type": "array", "items": {"type": "string"}},
         },
     }

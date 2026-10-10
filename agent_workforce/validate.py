@@ -13,11 +13,11 @@ import argparse
 import html
 import json
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
-from .checks import CHECKS, ERROR, WARNING, Context, Finding
 from . import model as m
+from .checks import CHECKS, ERROR, WARNING, Context, Finding
 
 
 def build_context(data: dict, as_of: date, max_agents_per_owner: int | None = None) -> Context:
@@ -27,8 +27,7 @@ def build_context(data: dict, as_of: date, max_agents_per_owner: int | None = No
         employees={e["userId"]: e for e in data.get("employees", [])},
         positions={p["code"]: p for p in data.get("positions", [])},
         cost_centers=set(data.get("costCenters", [])),
-        max_agents_per_owner=(m.DEFAULT_MAX_AGENTS_PER_OWNER if max_agents_per_owner is None
-                              else max_agents_per_owner),
+        max_agents_per_owner=(m.DEFAULT_MAX_AGENTS_PER_OWNER if max_agents_per_owner is None else max_agents_per_owner),
     )
 
 
@@ -54,11 +53,14 @@ def summary(findings: list[Finding], ctx: Context) -> dict:
 
 
 def render_html(findings: list[Finding], summ: dict) -> str:
-    rows = "\n".join(
-        f"<tr class='{f.severity.lower()}'><td>{html.escape(f.check_id)}</td>"
-        f"<td>{f.severity}</td><td>{html.escape(f.agent)}</td><td>{html.escape(f.message)}</td></tr>"
-        for f in sorted(findings, key=lambda x: (x.severity != ERROR, x.check_id, x.agent))
-    ) or "<tr><td colspan='4'>No findings. Register passes all checks.</td></tr>"
+    rows = (
+        "\n".join(
+            f"<tr class='{f.severity.lower()}'><td>{html.escape(f.check_id)}</td>"
+            f"<td>{f.severity}</td><td>{html.escape(f.agent)}</td><td>{html.escape(f.message)}</td></tr>"
+            for f in sorted(findings, key=lambda x: (x.severity != ERROR, x.check_id, x.agent))
+        )
+        or "<tr><td colspan='4'>No findings. Register passes all checks.</td></tr>"
+    )
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Register Validation</title>
@@ -75,12 +77,12 @@ th,td{{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-
 tr.error td:nth-child(2){{color:var(--err);font-weight:600}}tr.warning td:nth-child(2){{color:var(--warn);font-weight:600}}
 </style></head><body>
 <h1>Agent register validation</h1>
-<p>As of {summ['asOf']}. CHK-AGT catalogue, EU AI Act references per Regulation (EU) 2024/1689 as amended by 2026/1744.</p>
+<p>As of {summ["asOf"]}. CHK-AGT catalogue, EU AI Act references per Regulation (EU) 2024/1689 as amended by 2026/1744.</p>
 <div class="tiles">
-<div class="tile"><b>{summ['records']}</b>records</div>
-<div class="tile"><b>{summ['activeAgents']}</b>active agents</div>
-<div class="tile"><b>{summ['errors']}</b>errors</div>
-<div class="tile"><b>{summ['warnings']}</b>warnings</div>
+<div class="tile"><b>{summ["records"]}</b>records</div>
+<div class="tile"><b>{summ["activeAgents"]}</b>active agents</div>
+<div class="tile"><b>{summ["errors"]}</b>errors</div>
+<div class="tile"><b>{summ["warnings"]}</b>warnings</div>
 </div>
 <div class="wrap"><table><thead><tr><th>Check</th><th>Severity</th><th>Agent / owner</th><th>Finding</th></tr></thead>
 <tbody>
@@ -92,7 +94,7 @@ tr.error td:nth-child(2){{color:var(--err);font-weight:600}}tr.warning td:nth-ch
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("input", type=Path)
-    ap.add_argument("--as-of", type=date.fromisoformat, default=date.today())
+    ap.add_argument("--as-of", type=date.fromisoformat, default=datetime.now().astimezone().date())
     ap.add_argument("--json", type=Path)
     ap.add_argument("--html", type=Path)
     ap.add_argument("--max-agents-per-owner", type=int)
@@ -110,12 +112,15 @@ def main(argv: list[str] | None = None) -> int:
 
     for f in sorted(findings, key=lambda x: (x.check_id, x.agent)):
         print(f"{f.check_id}  {f.severity:<7}  {f.agent:<18}  {f.message}")
-    print(f"\n{summ['activeAgents']} active of {summ['records']} records: "
-          f"{summ['errors']} errors, {summ['warnings']} warnings")
+    print(
+        f"\n{summ['activeAgents']} active of {summ['records']} records: "
+        f"{summ['errors']} errors, {summ['warnings']} warnings"
+    )
 
     if args.json:
-        args.json.write_text(json.dumps({"summary": summ, "findings": [f.to_dict() for f in findings]},
-                                        indent=2), encoding="utf-8")
+        args.json.write_text(
+            json.dumps({"summary": summ, "findings": [f.to_dict() for f in findings]}, indent=2), encoding="utf-8"
+        )
     if args.html:
         args.html.write_text(render_html(findings, summ), encoding="utf-8")
     return 1 if summ["errors"] else 0

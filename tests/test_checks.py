@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from agent_workforce.validate import build_context, run, main
 from agent_workforce.checks import CHECKS
+from agent_workforce.validate import build_context, main, run
 
 ROOT = Path(__file__).resolve().parents[1]
 AS_OF = date(2026, 10, 10)
@@ -129,9 +129,12 @@ def test_08_catches_suspended_agent(clean):
     assert "CHK-AGT-08" in ids(clean)
 
 
-@pytest.mark.parametrize("change", [
-    {"positionCode": "POS-NOPE"},
-])
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"positionCode": "POS-NOPE"},
+    ],
+)
 def test_09_unknown_position(clean, change):
     agent(clean).update(change)
     assert "CHK-AGT-09" in ids(clean)
@@ -195,8 +198,17 @@ def test_demo_register_hits_every_designed_check():
 def test_cli_exit_codes_and_reports(tmp_path):
     out_json, out_html = tmp_path / "f.json", tmp_path / "r.html"
     assert main([str(ROOT / "examples" / "clean_register.json"), "--as-of", "2026-10-10"]) == 0
-    rc = main([str(ROOT / "examples" / "demo_with_findings.json"), "--as-of", "2026-10-10",
-               "--json", str(out_json), "--html", str(out_html)])
+    rc = main(
+        [
+            str(ROOT / "examples" / "demo_with_findings.json"),
+            "--as-of",
+            "2026-10-10",
+            "--json",
+            str(out_json),
+            "--html",
+            str(out_html),
+        ]
+    )
     assert rc == 1
     report = json.loads(out_json.read_text())
     assert report["summary"]["errors"] > 0

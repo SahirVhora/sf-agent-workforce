@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/SahirVhora/sf-agent-workforce/schema/agent_register.schema.json",
+  "$id": "https://sahirvhora.github.io/sf-agent-workforce/schema/agent_register.schema.json",
   "title": "Agent register export",
   "type": "object",
   "required": [

@@ -14,3 +14,7 @@ agent-validate = "agent_workforce.validate:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

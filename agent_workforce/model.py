@@ -18,22 +18,22 @@ RISK_CLASSES = {
 }
 
 OVERSIGHT_MODES = {
-    "HUMAN_IN_THE_LOOP",   # a human approves each output before it takes effect
-    "HUMAN_ON_THE_LOOP",   # a human monitors and can intervene or stop
+    "HUMAN_IN_THE_LOOP",  # a human approves each output before it takes effect
+    "HUMAN_ON_THE_LOOP",  # a human monitors and can intervene or stop
     "NONE",
 }
 
 # Decision scopes. Those in EMPLOYMENT_SCOPES map to Annex III point 4
 # (employment, workers' management and access to self-employment).
 EMPLOYMENT_SCOPES = {
-    "recruitment_targeted_ads",      # Annex III 4(a)
-    "recruitment_screening",         # Annex III 4(a)
-    "candidate_evaluation",          # Annex III 4(a)
-    "promotion_decision",            # Annex III 4(b)
-    "termination_decision",          # Annex III 4(b)
-    "terms_of_work_decision",        # Annex III 4(b)
-    "task_allocation_by_traits",     # Annex III 4(b)
-    "performance_monitoring",        # Annex III 4(b)
+    "recruitment_targeted_ads",  # Annex III 4(a)
+    "recruitment_screening",  # Annex III 4(a)
+    "candidate_evaluation",  # Annex III 4(a)
+    "promotion_decision",  # Annex III 4(b)
+    "termination_decision",  # Annex III 4(b)
+    "terms_of_work_decision",  # Annex III 4(b)
+    "task_allocation_by_traits",  # Annex III 4(b)
+    "performance_monitoring",  # Annex III 4(b)
 }
 
 # Workplace emotion recognition is prohibited by Article 5(1)(f), save for

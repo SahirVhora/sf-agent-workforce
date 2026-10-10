@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agents in SuccessFactors: Data Model &amp; EU AI Act Checks</title>
+<meta name="description" content="Open-source data model and validator for governing AI agents in SAP SuccessFactors. 15 checks mapped to the EU AI Act, plus a free HR audit checklist.">
+<meta name="keywords" content="AI agents SuccessFactors, AI agent governance HR, EU AI Act HR checklist, EU AI Act Annex III employment, digital workforce data model, agent register, SAP SuccessFactors Employee Central, MDF object, HRIS AI governance, Article 26 deployer obligations">
+<meta name="author" content="Sahir Vhora">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#07111f">
+<link rel="canonical" href="https://sahirvhora.github.io/sf-agent-workforce/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SF Compass">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://sahirvhora.github.io/sf-agent-workforce/">
+<meta property="og:title" content="AI Agents in SAP SuccessFactors: Data Model and EU AI Act Checks">
+<meta property="og:description" content="Treat AI agents as governed workers, not employees. A SuccessFactors data model, 15 validation checks mapped to the EU AI Act, and a free HR audit checklist.">
+<meta property="og:image" content="https://sahirvhora.github.io/sf-agent-workforce/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SF Agent Workforce: data model and EU AI Act checks for AI agents in SAP SuccessFactors">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://sahirvhora.github.io/sf-agent-workforce/">
+<meta name="twitter:title" content="AI Agents in SAP SuccessFactors: Data Model and EU AI Act Checks">
+<meta name="twitter:description" content="A SuccessFactors data model for AI agents, 15 checks mapped to the EU AI Act, and a free HR audit checklist.">
+<meta name="twitter:image" content="https://sahirvhora.github.io/sf-agent-workforce/preview.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://sahirvhora.github.io/sf-agent-workforce/#software",
+      "name": "SF Agent Workforce",
+      "description": "Reference data model and validator for AI agents held as governed workers in SAP SuccessFactors Employee Central, with checks mapped to the EU AI Act.",
+      "url": "https://sahirvhora.github.io/sf-agent-workforce/",
+      "codeRepository": "https://github.com/SahirVhora/sf-agent-workforce",
+      "programmingLanguage": "Python",
+      "runtimePlatform": "Python 3.10+",
+      "license": "https://opensource.org/licenses/MIT",
+      "version": "0.1.0",
+      "dateCreated": "2026-10-10",
+      "keywords": "AI agents, SAP SuccessFactors, EU AI Act, HR governance, Employee Central, agent register",
+      "author": {"@id": "https://sahirvhora.github.io/#person"},
+      "isPartOf": {"@type": "WebSite", "name": "SF Compass", "url": "https://sahirvhora.github.io/sf-compass/"}
+    },
+    {
+      "@type": "Person",
+      "@id": "https://sahirvhora.github.io/#person",
+      "name": "Sahir Vhora",
+      "url": "https://sahirvhora.github.io/",
+      "jobTitle": "SAP SuccessFactors Employee Central consultant",
+      "sameAs": ["https://github.com/SahirVhora"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Should AI agents be created as employees in SuccessFactors?",
+          "acceptedAnswer": {"@type": "Answer", "text": "No. Creating agents as users with job records inflates headcount and statutory reporting, risks payroll replication to EC Payroll or third-party payroll, can consume per-employee licences, and fills employment fields with meaningless data. Model them as their own effective-dated MDF object that references positions, cost centres and accountable people."}
+        },
+        {
+          "@type": "Question",
+          "name": "When do the EU AI Act high-risk rules apply to HR systems?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Under Regulation (EU) 2026/1744, which amended the AI Act, obligations for stand-alone high-risk systems in Annex III, including employment and workers' management, apply from 2 December 2027. Prohibitions such as workplace emotion recognition have applied since 2 February 2025, and Article 50 transparency duties since 2 August 2026."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does the EU AI Act apply to UK employers?",
+          "acceptedAnswer": {"@type": "Answer", "text": "It can. Article 2 brings providers and deployers outside the EU into scope where they place AI systems on the EU market or where the system's output is used in the EU, for example an HR system used for EU-based workers or candidates."}
+        },
+        {
+          "@type": "Question",
+          "name": "Which HR uses of AI are high-risk?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Annex III point 4 covers recruitment and selection (targeted job adverts, filtering applications, evaluating candidates) and decisions affecting terms of work, promotion, termination, task allocation based on individual behaviour or traits, and monitoring or evaluating performance and behaviour."}
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--panel:#0f1b2e;--panel2:#14233b;--line:#26374f;--text:#e6edf7;--muted:#9fb0c7;--blue:#38bdf8;--green:#34d399;--gold:#fbbf24;--red:#fb7185;--purple:#c084fc}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,#12345a 0,var(--bg) 38%);background-color:var(--bg);color:var(--text);line-height:1.55}
+a{color:var(--blue)}
+.wrap{max-width:1160px;margin:0 auto;padding:48px 22px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+.eyebrow{color:var(--blue);text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:800}
+h1{font-size:clamp(32px,5.4vw,58px);line-height:1.04;margin:12px 0 16px}
+h2{margin:0 0 14px;font-size:clamp(21px,3vw,28px)}
+h3{font-size:17px;margin:0 0 8px}
+.lead{color:var(--muted);font-size:19px;max-width:720px;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+a.btn{color:var(--bg);background:var(--blue);padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:800}
+a.btn.secondary{color:var(--text);background:transparent;border:1px solid var(--line)}
+.card{background:linear-gradient(180deg,var(--panel),#0b1627);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.section{margin-top:40px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:34px 0 0}
+.metric strong{display:block;font-size:28px}
+.metric span{color:var(--muted);font-size:14px}
+.green{color:var(--green)}.blue{color:var(--blue)}.gold{color:var(--gold)}.red{color:var(--red)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+ul{padding-left:20px;color:var(--muted);margin:0}
+li{margin-bottom:6px}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#0b1627;border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-size:13px;color:#cfe3ff;margin:0}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;background:var(--panel2);font-size:14px;min-width:620px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;background:#0b1627;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.04em}
+.b-err{color:var(--red);border:1px solid var(--red);background:#7f1d1d33}
+.b-warn{color:var(--gold);border:1px solid var(--gold);background:#78350f33}
+.model{display:grid;grid-template-columns:1fr auto 1.3fr auto 1fr;gap:10px;align-items:center}
+.node{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.node b{display:block;color:var(--text);margin-bottom:4px}
+.node.core{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.arrow{color:var(--muted);text-align:center}
+.dates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.date{border-left:3px solid var(--line);padding:6px 0 6px 14px}
+.date strong{display:block;font-size:18px}
+.date.now{border-color:var(--red)}.date.aug{border-color:var(--gold)}.date.dec{border-color:var(--blue)}
+.related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.related a{border:1px solid var(--line);border-radius:8px;padding:8px 12px;text-decoration:none;font-size:14px}
+.related a:hover{border-color:var(--blue)}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);margin:10px 0 0}
+footer{margin-top:48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+@media (max-width:860px){.hero,.grid2,.grid3,.metrics,.dates{grid-template-columns:1fr}.model{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.wrap{padding:30px 16px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">SF Compass · Open source</div>
+    <h1>AI agents in SAP SuccessFactors, governed like workers</h1>
+    <p class="lead">Agents already validate payroll, screen applications and answer employee queries. Almost nobody records them where work is planned, costed and governed. This is a data model and validator that does, with every check mapped to the EU AI Act.</p>
+    <div class="actions">
+      <a class="btn" href="https://github.com/SahirVhora/sf-agent-workforce">View on GitHub</a>
+      <a class="btn secondary" href="downloads/EU_AI_Act_HR_Audit_Checklist.xlsx">Free EU AI Act HR checklist (.xlsx)</a>
+      <a class="btn secondary" href="sample-report.html">Sample validation report</a>
+    </div>
+  </div>
+  <div class="card">
+    <h3>What you get</h3>
+    <ul>
+      <li>An effective-dated <code>cust_DigitalWorker</code> MDF object design with owner, kill-switch owner, position, cost centre and expiring permissions</li>
+      <li>15 CHK-AGT checks with console, JSON and HTML output and a CI-friendly exit code</li>
+      <li>Decision scopes mapped to Annex III point 4 and the Article 5 prohibitions</li>
+      <li>A 36-item audit workbook for HR, deployer and provider obligations</li>
+    </ul>
+  </div>
+</section>
+
+<section class="metrics" aria-label="Key facts">
+  <div class="card metric"><strong class="blue">15</strong><span>validation checks</span></div>
+  <div class="card metric"><strong class="green">54</strong><span>automated tests</span></div>
+  <div class="card metric"><strong class="gold">0</strong><span>runtime dependencies</span></div>
+  <div class="card metric"><strong class="red">2 Dec 2027</strong><span>HR high-risk rules apply</span></div>
+</section>
+
+<section class="section grid2">
+  <div class="card">
+    <h2>Why not create agents as employees?</h2>
+    <p class="muted">It is the obvious shortcut and it breaks four things at once.</p>
+    <ul>
+      <li><b>Headcount and statutory reporting.</b> Agents inflate FTE, gender pay gap denominators and workforce analytics.</li>
+      <li><b>Payroll replication.</b> EC Payroll and third-party payroll integrations pick up employment records. An agent with a job record is a payroll defect waiting to happen.</li>
+      <li><b>Licensing.</b> Many HCM licences count employee records.</li>
+      <li><b>Meaning.</b> Contract, notice and leave fields fill with junk.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>The model instead</h2>
+    <p class="muted">Agents get their own object that references the same foundation data, positions and people as employees, so they show up in org, cost and capacity views without polluting employment data.</p>
+    <div class="model" role="img" aria-label="Position links to the digital worker object, which links to accountable employees, permissions and foundation data">
+      <div class="node"><b>Position</b>+ staffingType HUMAN / AGENT / HYBRID</div>
+      <div class="arrow">&rarr;</div>
+      <div class="node core"><b>cust_DigitalWorker</b>effective dated · risk class · oversight mode · decision scopes</div>
+      <div class="arrow">&rarr;</div>
+      <div class="node"><b>Owner &amp; kill-switch</b>active employees</div>
+    </div>
+    <p class="muted" style="margin-top:12px">Plus a composite <code>cust_AgentPermission</code> child with mandatory expiry, and references to legal entity and cost centre.</p>
+  </div>
+</section>
+
+<section class="section card">
+  <h2>EU AI Act dates for HR, as amended</h2>
+  <p class="muted">Regulation (EU) 2026/1744 (the Digital Omnibus on AI) was published on 24 July 2026 and entered into force on 27 July 2026.</p>
+  <div class="dates">
+    <div class="date now"><strong>2 Feb 2025</strong><span class="muted">Prohibitions apply, including workplace emotion recognition (Art. 5(1)(f))</span></div>
+    <div class="date aug"><strong>2 Aug 2026</strong><span class="muted">Transparency duties apply, such as telling people they are talking to an AI (Art. 50)</span></div>
+    <div class="date dec"><strong>2 Dec 2027</strong><span class="muted">Annex III high-risk obligations apply to employment uses, deferred from 2 Aug 2026</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>The CHK-AGT check catalogue</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Severity</th><th>Rule</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>CHK-AGT-00</td><td><span class="badge b-err">ERROR</span></td><td>Required fields, enumerations and dates valid</td><td>Data quality</td></tr>
+        <tr><td>CHK-AGT-01</td><td><span class="badge b-err">ERROR</span></td><td>Accountable owner is an active employee</td><td>Art. 26(2)</td></tr>
+        <tr><td>CHK-AGT-02</td><td><span class="badge b-err">ERROR</span></td><td>Kill-switch owner is an active employee</td><td>Art. 14(4)(e)</td></tr>
+        <tr><td>CHK-AGT-03</td><td><span class="badge b-err">ERROR</span></td><td>Employment decision scopes force high-risk classification</td><td>Annex III point 4; Art. 6(3)</td></tr>
+        <tr><td>CHK-AGT-04</td><td><span class="badge b-err">ERROR</span></td><td>High-risk agent has a human oversight mode</td><td>Art. 14; Art. 26(2)</td></tr>
+        <tr><td>CHK-AGT-05</td><td><span class="badge b-err">ERROR</span></td><td>High-risk agent keeps logs for at least six months</td><td>Art. 26(6)</td></tr>
+        <tr><td>CHK-AGT-06</td><td><span class="badge b-err">ERROR</span></td><td>Workers' representatives informed on or before go-live</td><td>Art. 26(7)</td></tr>
+        <tr><td>CHK-AGT-07</td><td><span class="badge b-err">ERROR</span></td><td>Permissions expire within 365 days of grant</td><td>Least privilege</td></tr>
+        <tr><td>CHK-AGT-08</td><td><span class="badge b-err">ERROR</span></td><td>No permission active past its expiry, including on suspended agents</td><td>Least privilege</td></tr>
+        <tr><td>CHK-AGT-09</td><td><span class="badge b-err">ERROR</span></td><td>Assigned position is active and staffed AGENT or HYBRID</td><td>Position control</td></tr>
+        <tr><td>CHK-AGT-10</td><td><span class="badge b-err">ERROR</span></td><td>Cost centre exists in foundation data</td><td>Cost allocation</td></tr>
+        <tr><td>CHK-AGT-11</td><td><span class="badge b-warn">WARNING</span></td><td>Periodic review not overdue</td><td>Governance</td></tr>
+        <tr><td>CHK-AGT-12</td><td><span class="badge b-err">ERROR</span></td><td>No overlapping effective-dated records</td><td>Data integrity</td></tr>
+        <tr><td>CHK-AGT-13</td><td><span class="badge b-warn">WARNING</span></td><td>Owner not accountable for more agents than they can oversee</td><td>Oversight capacity</td></tr>
+        <tr><td>CHK-AGT-14</td><td><span class="badge b-err">ERROR</span></td><td>No active prohibited practice</td><td>Art. 5(1)(f)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted" style="margin-top:12px">"High-risk" means declared high-risk <b>or</b> carrying an employment decision scope, so a misclassification cannot hide the oversight, logging and consultation gaps behind it.</p>
+</section>
+
+<section class="section grid2">
+  <div class="card">
+    <h2>Run it in a minute</h2>
+<pre>git clone https://github.com/SahirVhora/sf-agent-workforce
+cd sf-agent-workforce
+python -m agent_workforce.validate \
+  examples/demo_with_findings.json \
+  --as-of 2026-10-10 --html report.html
+python -m pytest -q</pre>
+    <p class="muted" style="margin-top:12px">Python 3.10+, standard library only. Exit code 0 means clean, 1 means errors, 2 means unreadable input.</p>
+  </div>
+  <div class="card">
+    <h2>Free download: EU AI Act HR audit checklist</h2>
+    <p class="muted">A working Excel checklist for HR and HRIS teams: 36 requirements with article references and applicable dates, a triage of 12 common HR AI use cases, and a summary that tracks completion by area.</p>
+    <div class="actions" style="margin-top:14px">
+      <a class="btn" href="downloads/EU_AI_Act_HR_Audit_Checklist.xlsx">Download the checklist</a>
+      <a class="btn secondary" href="schema/agent_register.schema.json">JSON Schema</a>
+    </div>
+  </div>
+</section>
+
+<section class="section card">
+  <h2>Questions</h2>
+  <details><summary>Should AI agents be created as employees in SuccessFactors?</summary><p>No. Creating agents as users with job records inflates headcount and statutory reporting, risks payroll replication, can consume per-employee licences and fills employment fields with meaningless data. Model them as their own effective-dated MDF object that references positions, cost centres and accountable people.</p></details>
+  <details><summary>When do the EU AI Act high-risk rules apply to HR systems?</summary><p>From 2 December 2027 for stand-alone Annex III systems, including employment and workers' management, under Regulation (EU) 2026/1744. Prohibitions have applied since 2 February 2025 and Article 50 transparency duties since 2 August 2026.</p></details>
+  <details><summary>Does the EU AI Act apply to UK employers?</summary><p>It can. Article 2 brings providers and deployers outside the EU into scope where they place AI systems on the EU market or where the system's output is used in the EU, for example an HR system used for EU-based workers or candidates.</p></details>
+  <details><summary>Which HR uses of AI are high-risk?</summary><p>Annex III point 4 covers recruitment and selection (targeted job adverts, filtering applications, evaluating candidates) and decisions affecting terms of work, promotion, termination, task allocation based on individual behaviour or traits, and monitoring or evaluating performance and behaviour.</p></details>
+</section>
+
+<section class="section">
+  <p class="muted">Part of the <a href="https://sahirvhora.github.io/sf-compass/">SF Compass</a> transformation assurance suite.</p>
+  <div class="related">
+    <a href="https://sahirvhora.github.io/sf-compass/">SF Compass hub</a>
+    <a href="https://sahirvhora.github.io/sf-position-integrity-checker/">Position Integrity Checker</a>
+    <a href="https://sahirvhora.github.io/sf-pay-transparency/">Pay Transparency</a>
+    <a href="https://sahirvhora.github.io/sf-config-compare/">Config Compare</a>
+    <a href="https://sahirvhora.github.io/">All tools by Sahir Vhora</a>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://sahirvhora.github.io/">Sahir Vhora</a>, SAP SuccessFactors Employee Central consultant. MIT licensed.</p>
+  <p>This checks a register, not the law. A clean run is evidence of control, not a conformity assessment or legal advice.</p>
+</footer>
+</main>
+</body>
+</html>
