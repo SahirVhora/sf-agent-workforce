@@ -4,3 +4,8 @@ __pycache__/
 report.html
 findings.json
 dist/
+
+# Python package builds
+build/
+dist/
+*.egg-info/
