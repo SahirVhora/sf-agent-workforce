@@ -40,3 +40,10 @@ jobs:
 
       - name: Run tests (checks, schema drift, site SEO)
         run: python -m pytest -q
+
+      - name: Verify installed wheel outside checkout
+        run: |
+          pip install build
+          python -m build --wheel
+          pip install --no-deps --force-reinstall dist/*.whl
+          cd /tmp && agent-validate --help
